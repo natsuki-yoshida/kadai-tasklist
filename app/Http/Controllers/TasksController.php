@@ -77,14 +77,11 @@ class TasksController extends Controller
         {   $task = Task::find($id);
             
             if (\Auth::user()->id === $task->user_id) {
-
-           
-
-        return view('tasks.show', [
+             return view('tasks.show', [
             'task' => $task,
         ]);}
         else {
-            return view('welcome');
+            return redirect('/');
         }
     }
 
@@ -95,8 +92,7 @@ class TasksController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {  
-        $task = Task::find($id);
+    {   $task = Task::find($id);
         if (\Auth::user()->id === $task->user_id) {
         
 
