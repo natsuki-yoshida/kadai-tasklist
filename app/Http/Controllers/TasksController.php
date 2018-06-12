@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Task;
+
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
@@ -14,7 +16,7 @@ class TasksController extends Controller
      * @return \Illuminate\Http\Response
      */
  public function index()
-    {
+    {    $tasks = Task::all();
         $data = [];
         if (\Auth::check()) {
             $user = \Auth::user();
@@ -25,7 +27,7 @@ class TasksController extends Controller
                 'tasks' => $tasks,
             ];
             $data += $this->counts($user);
-            return view('users.show', $data);
+            return view('tasks.index', $data);
         }else {
             return view('welcome');
         }
@@ -62,7 +64,7 @@ class TasksController extends Controller
             
         ]);
 
-        return redirect()->back();
+        return redirect('/');
     }
 
     /**
@@ -131,6 +133,6 @@ class TasksController extends Controller
             $task->delete();
         }
 
-        return redirect()->back();
+        return redirect('/');
     }
 }
